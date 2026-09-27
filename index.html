@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Club Jeopardy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Slide 1: Title -->
+  <section class="slide active title-slide" id="slide-title">
+  
+    <div class="hero-bg" aria-hidden="true"></div>
+  
+    <div class="title-content">
+  
+      <p class="game-label">CHESS CLUB PRESENTS</p>
+  
+      <h1>Jeopardy</h1>
+  
+      <p class="title-subtitle">
+        Test your chess knowledge!
+      </p>
+  
+      <button
+        class="primary-button"
+        onclick="goSlide('slide-instructions')"
+      >
+        Instructions →
+      </button>
+  
+    </div>
+  
+  </section>
+
+ <!-- Slide 2: Rules & Instructions -->
+<section class="slide rules-slide" id="slide-instructions">
+  <div class="rules-content">
+
+    <h2>Instructions</h2>
+    <p class="rules-subtitle">
+      Before we begin, here are some instructions.
+    </p>
+
+    <div class="rules-grid">
+
+      <div class="rule-card">
+        <div class="rule-number">1</div>
+        <h3>Get Together in a Team</h3>
+        <p>
+          Get together with your friends to make teams of 4.
+        </p>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-number">2</div>
+        <h3>Sit Down and Raise Your Hands</h3>
+        <p>
+          After you find your team, sit down quietly and raise your hand.
+          We will hand you a whiteboard.
+        </p>
+      </div>
+
+    </div> 
+
+    <div class="rules-buttons">
+      <button class="back-button" onclick="goSlide('slide-title')">
+        ← Back
+      </button>
+
+      <button class="primary-button" onclick="goSlide('slide-rules')">
+        Rules →
+      </button>
+    </div>
+
+  </div> 
+</section>
+  
+  <!-- Slide 3: Rules -->
+  <section class="slide rules-slide" id="slide-rules">
+    <div class="rules-content">
+      <h2>Rules</h2>
+      <p class="rules-subtitle">Before we begin, here's how Chess Jeopardy works.</p>
+
+      <div class="rules-grid">
+
+        <div class="rule-card">
+          <div class="rule-number">1</div>
+          <h3>Choose a Question</h3>
+          <p>
+            Select any available category and point value from the Jeopardy board that is still available.
+          </p>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-number">2</div>
+          <h3>Answer the Question</h3>
+          <p>
+            Your team gets a chance to answer the question shown within the alloted time. All teams that get the question correct will earn the points. 
+          </p>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-number">3</div>
+          <h3>Earn Points</h3>
+          <p>
+            Correct answers earn the points shown on the board.
+          </p>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-number">4</div>
+          <h3>Have Fun!</h3>
+          <p>
+            Work together, test your chess knowledge, and enjoy the game.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="rules-note">
+        ♟️ <strong>Remember:</strong> Once a question has been selected, it cannot be selected again.
+      </div>
+
+      <div class="rules-buttons">
+        <button class="back-button" onclick="goSlide('slide-instructions')">
+          ← Back
+        </button>
+
+        <button class="primary-button" onclick="goSlide('slide-jeopardy')">
+          Start Jeopardy! →
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Slide 4: Jeopardy -->
+  <section class="slide jeopardy-slide" id="slide-jeopardy">
+
+      <div id="jeopardy-board" class="jeopardy-board"></div>
+    
+      <button class="final-jeopardy-button" onclick="startFinalJeopardy()">
+        FINAL JEOPARDY!
+      </button>
+    
+      <button class="back-button" onclick="goSlide('slide-rules')">
+        ← Back
+      </button>
+    
+    </section>
+  
+  <!-- Final Jeopardy -->
+  <section class="slide final-jeopardy-slide" id="slide-final-jeopardy">
+  
+    <div class="final-jeopardy-content">
+  
+      <p class="final-jeopardy-label">FINAL JEOPARDY</p>
+  
+      <h2 id="final-category">Chess History</h2>
+  
+      <div class="final-divider"></div>
+  
+      <p id="final-question" class="final-question">
+        This is your Final Jeopardy question.
+      </p>
+  
+      <p id="final-answer" class="final-answer" aria-live="polite">
+        Answer: This is the answer.
+      </p>
+  
+      <div class="final-buttons">
+  
+        <button
+          id="final-show-answer"
+          class="primary-button"
+          onclick="showFinalAnswer()"
+        >
+          Show Answer
+        </button>
+  
+        <button
+          class="secondary-button"
+          onclick="closeFinalJeopardy()"
+        >
+          ← Back to Board
+        </button>
+  
+      </div>
+  
+    </div>
+  
+    <!-- Final Jeopardy Timer -->
+    <div class="question-timer">
+
+      <div class="timer-display-row">
+        <span id="final-timer-display">45</span>
+        <span>seconds</span>
+      </div>
+    
+      <div class="timer-track">
+        <div id="final-timer-bar"></div>
+      </div>
+    
+      <div class="timer-controls">
+        <button id="final-timer-pause-btn" onclick="toggleTimer()">
+          Pause
+        </button>
+    
+        <button onclick="restartTimer()">
+          Restart
+        </button>
+      </div>
+    
+    </div>
+  
+  </section>
+  
+  <!-- Question Screen -->
+  <div id="question-modal" class="question-screen">
+
+    <div class="question-content">
+  
+      <p id="modal-category" class="modal-category"></p>
+  
+      <p id="modal-points" class="modal-points"></p>
+  
+      <div class="question-divider"></div>
+  
+      <p id="modal-question" class="modal-question"></p>
+  
+      <p id="modal-answer" class="modal-answer" aria-live="polite"></p>
+  
+      <div class="modal-buttons">
+        <button id="show-answer-btn" class="primary-button" onclick="showAnswer()">
+          Show Answer
+        </button>
+  
+        <button class="secondary-button" onclick="closeModal()">
+          ← Back to Board
+        </button>
+      </div>
+  
+    </div>
+  
+    <!-- Timer -->
+    <div class="question-timer">
+
+      <div class="timer-display-row">
+        <span id="timer-display">45</span>
+        <span>seconds</span>
+      </div>
+    
+      <div class="timer-track">
+        <div id="timer-bar"></div>
+      </div>
+    
+      <div class="timer-controls">
+        <button id="timer-pause-btn" onclick="toggleTimer()">
+          Pause
+        </button>
+    
+        <button onclick="restartTimer()">
+          Restart
+        </button>
+      </div>
+    
+    </div>
+  
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
