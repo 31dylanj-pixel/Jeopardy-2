@@ -107,7 +107,7 @@ button {
 
   padding: 2rem;
 
-  overflow: hidden;
+  overflow: visible;
 
   background: var(--background);
 }
