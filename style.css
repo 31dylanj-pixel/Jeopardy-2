@@ -1,0 +1,1009 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --background: #1e1b4b;
+  --indigo: #3730a3;
+  --indigo-dark: #312e81;
+  --gold: #f59e0b;
+  --gold-light: #fbbf24;
+  --text: #ffffff;
+  --muted: #c7d2fe;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--background);
+  color: var(--text);
+  overflow: hidden;
+}
+
+button {
+  font: inherit;
+}
+
+.slide {
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translateY(20px);
+
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease,
+    visibility 0s linear 0.45s;
+
+  position: absolute;
+  inset: 0;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform: translateY(0);
+
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease,
+    visibility 0s linear 0s;
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.title-slide {
+  position: relative;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 2rem;
+
+  overflow: hidden;
+}
+
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      rgba(30, 27, 75, 0.82),
+      rgba(30, 27, 75, 0.92)
+    ),
+
+    url("https://images.pexels.com/photos/29778421/pexels-photo-29778421.jpeg?auto=compress&cs=tinysrgb&w=1920")
+    center / cover no-repeat;
+
+  opacity: 0.8;
+}
+
+
+.title-content {
+  position: relative;
+
+  z-index: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 1rem;
+}
+
+
+.game-label {
+  margin: 0;
+
+  color: var(--gold-light);
+
+  font-weight: 700;
+
+  font-size: 0.9rem;
+
+  letter-spacing: 0.25em;
+}
+
+
+.title-content h1 {
+  margin: 0;
+
+  font-family: "Playfair Display", serif;
+
+  font-size: clamp(4rem, 10vw, 7rem);
+
+  font-weight: 900;
+}
+
+
+.title-subtitle {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: clamp(1rem, 2vw, 1.3rem);
+}
+
+/* Buttons */
+.primary-button,
+.secondary-button,
+.back-button {
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s, background 0.2s;
+}
+
+.primary-button {
+  margin-top: 1.25rem;
+  padding: 0.8rem 2rem;
+  border-radius: 0.6rem;
+  background: var(--gold);
+  color: var(--background);
+  font-weight: 700;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  background: var(--gold-light);
+}
+
+.secondary-button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.6rem;
+  background: transparent;
+  border: 1px solid #a5b4fc;
+  color: white;
+  font-weight: 700;
+}
+
+.secondary-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.back-button {
+  background: none;
+  color: white;
+  opacity: 0.65;
+  text-decoration: underline;
+  margin-top: 0.5rem;
+}
+
+.back-button:hover {
+  opacity: 1;
+}
+
+/* ==========================================
+   JEOPARDY BOARD
+   ========================================== */
+
+.jeopardy-slide {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1.25rem;
+
+  gap: 0.8rem;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(55, 48, 163, 0.35),
+      transparent 55%
+    ),
+    var(--background);
+}
+
+/* Board */
+
+.jeopardy-board {
+  width: 100%;
+  max-width: 1100px;
+
+  height: 74vh;
+
+  display: grid;
+
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-rows: repeat(6, minmax(60px, 1fr));
+
+  gap: 0.55rem;
+
+  perspective: 1000px;
+}
+
+/* ==========================================
+   CATEGORY HEADERS
+   ========================================== */
+
+.category-cell {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 0.7rem;
+
+  border-radius: 0.75rem;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(55, 48, 163, 0.95),
+      rgba(30, 27, 75, 0.98)
+    );
+
+  border: 1px solid rgba(165, 180, 252, 0.28);
+
+  color: white;
+
+  font-size: 1.25rem;
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  overflow: hidden;
+}
+
+/* Gold accent line */
+
+.category-cell::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: 0;
+  left: 15%;
+
+  width: 70%;
+  height: 3px;
+
+  border-radius: 999px;
+
+  background: var(--gold);
+}
+
+/* ==========================================
+   QUESTION CELLS
+   ========================================== */
+
+.jeopardy-cell {
+  position: relative;
+
+  border: 1px solid rgba(245, 158, 11, 0.25);
+
+  border-radius: 0.75rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fbbf24,
+      #f59e0b
+    );
+
+  color: var(--background);
+
+  font-size: clamp(1.3rem, 2.7vw, 2rem);
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 7px 14px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* Shine */
+
+.jeopardy-cell::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 70%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.45s ease;
+}
+
+/* Hover */
+
+.jeopardy-cell:hover:not(.used) {
+  transform: translateY(-4px) scale(1.025);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 12px 25px rgba(0, 0, 0, 0.35),
+    0 0 18px rgba(245, 158, 11, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.jeopardy-cell:hover:not(.used)::before {
+  left: 140%;
+}
+
+/* Click */
+
+.jeopardy-cell:active:not(.used) {
+  transform: scale(0.98);
+}
+
+/* ==========================================
+   USED QUESTIONS
+   ========================================== */
+
+.jeopardy-cell.used {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(49, 46, 129, 0.65),
+      rgba(30, 27, 75, 0.8)
+    );
+
+  border-color: rgba(165, 180, 252, 0.12);
+
+  color: rgba(255, 255, 255, 0.18);
+
+  box-shadow:
+    inset 0 0 15px rgba(0, 0, 0, 0.2);
+
+  cursor: default;
+
+  pointer-events: none;
+}
+
+/* ==========================================
+   FINAL JEOPARDY BUTTON
+   ========================================== */
+
+.final-jeopardy-button {
+  position: relative;
+
+  width: 100%;
+  max-width: 1100px;
+
+  height: 58px;
+
+  border: 1px solid rgba(245, 158, 11, 0.55);
+
+  border-radius: 0.75rem;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fbbf24,
+      #f59e0b
+    );
+
+  color: var(--background);
+
+  font-family: "DM Sans", sans-serif;
+
+  font-size: 1.15rem;
+  font-weight: 900;
+
+  letter-spacing: 0.12em;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(245, 158, 11, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.final-jeopardy-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 60%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.5s ease;
+}
+
+.final-jeopardy-button:hover {
+  transform: translateY(-3px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 12px 25px rgba(0, 0, 0, 0.35),
+    0 0 25px rgba(245, 158, 11, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.final-jeopardy-button:hover::before {
+  left: 140%;
+}
+
+.final-jeopardy-button:active {
+  transform: translateY(0);
+}
+
+/* Full-Screen Question */
+
+.question-screen {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #3730a3 0%,
+      #312e81 45%,
+      #1e1b4b 100%
+    );
+
+  padding: 3rem;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0s linear 0.25s;
+}
+
+.question-screen.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0s linear 0s;
+}
+
+.question-content {
+  width: 100%;
+  max-width: 1300px;
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  transform: scale(0.97);
+  opacity: 0;
+
+  transition:
+    transform 0.25s ease-out,
+    opacity 0.25s ease-out;
+}
+
+.question-screen.show .question-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.modal-category {
+  margin: 0 0 1rem;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+
+  color: var(--gold-light);
+}
+
+.modal-points {
+  margin: 0;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+
+  color: white;
+}
+
+.question-divider {
+  width: 120px;
+  height: 4px;
+
+  margin: 2rem 0;
+
+  border-radius: 999px;
+  background: var(--gold);
+}
+
+.modal-question {
+  max-width: 1200px;
+
+  margin: 0 0 2.5rem;
+
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 700;
+
+  line-height: 1.35;
+
+  color: white;
+}
+
+.modal-answer {
+  display: none;
+
+  max-width: 850px;
+
+  margin: 0 0 2.5rem;
+
+  font-size: clamp(1.4rem, 3vw, 2.3rem);
+  font-weight: 700;
+
+  line-height: 1.5;
+
+  color: var(--gold-light);
+}
+
+.modal-answer.show {
+  display: block;
+
+  animation: answerAppear 0.3s ease-out;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  flex-wrap: wrap;
+}
+
+.modal-buttons .primary-button {
+  margin-top: 0;
+}
+
+@keyframes answerAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   FINAL JEOPARDY
+   ========================================== */
+
+.final-jeopardy-slide {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 3rem 3rem 10rem;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #3730a3 0%,
+      #312e81 45%,
+      #1e1b4b 100%
+    );
+}
+
+.final-jeopardy-content {
+  width: 100%;
+  max-width: 1300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.final-jeopardy-label {
+  margin: 0 0 1rem;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+
+  color: var(--gold-light);
+}
+
+.final-jeopardy-content h2 {
+  margin: 0;
+
+  font-family: "Playfair Display", serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+}
+
+.final-divider {
+  width: 120px;
+  height: 4px;
+
+  margin: 1.75rem 0;
+
+  border-radius: 999px;
+  background: var(--gold);
+}
+
+.final-question {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 0 2rem;
+
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.35;
+
+  color: white;
+}
+
+.final-answer {
+  display: none;
+
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0 0 2rem;
+
+  font-size: clamp(1.4rem, 3vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.5;
+
+  color: var(--gold-light);
+}
+
+.final-answer.show {
+  display: block;
+  animation: answerAppear 0.3s ease-out;
+}
+
+.final-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.final-buttons .primary-button {
+  margin-top: 0;
+}
+
+/* ==========================================
+   TIMER
+   ========================================== */
+
+.question-timer {
+  position: absolute;
+
+  left: 50%;
+  bottom: 1.5rem;
+
+  transform: translateX(-50%);
+
+  width: 80%;
+  max-width: 900px;
+
+  text-align: center;
+
+  z-index: 10;
+}
+
+/* Time display */
+
+.timer-display-row {
+  display: flex;
+
+  align-items: baseline;
+  justify-content: center;
+
+  gap: 0.35rem;
+
+  margin-bottom: 0.6rem;
+}
+
+#timer-display,
+#final-timer-display {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.timer-display-row span:last-child {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Timer bar */
+
+.timer-track {
+  width: 100%;
+  height: 8px;
+
+  background: rgba(255, 255, 255, 0.2);
+
+  border-radius: 999px;
+
+  overflow: hidden;
+}
+
+#timer-bar,
+#final-timer-bar {
+  width: 100%;
+  height: 100%;
+
+  background: var(--gold);
+
+  transform-origin: right;
+  transform: scaleX(1);
+
+  transition: none;
+}
+
+/* Timer controls */
+
+.timer-controls {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 0.6rem;
+
+  margin-top: 0.7rem;
+}
+
+.timer-controls button {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  border-radius: 0.5rem;
+
+  padding: 0.45rem 1rem;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  font-family: "DM Sans", sans-serif;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.timer-controls button:hover {
+  background: rgba(255, 255, 255, 0.15);
+
+  transform: translateY(-1px);
+}
+
+.timer-controls button:active {
+  transform: translateY(0);
+}
+
+/* Rules & Instructions */
+.rules-slide {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  overflow: auto;
+}
+
+.rules-content {
+  width: 100%;
+  max-width: 900px;
+}
+
+.rules-content h2 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  margin: 0;
+}
+
+.rules-subtitle {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin: 0.5rem 0 2rem;
+}
+
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.rule-card {
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+  background: var(--indigo-dark);
+  border: 1px solid rgba(165, 180, 252, 0.25);
+  text-align: left;
+}
+
+.rule-number {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--background);
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+}
+
+.rule-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+}
+
+.rule-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.rules-note {
+  padding: 1rem 1.25rem;
+  border-radius: 0.6rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.rules-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rules-buttons .back-button {
+  margin-top: 0;
+}
+
+.rules-buttons .primary-button {
+  margin-top: 0;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  body {
+    overflow: auto;
+  }
+
+  .jeopardy-slide {
+    min-height: 100vh;
+  }
+
+  .jeopardy-board {
+    gap: 0.25rem;
+    grid-template-rows: repeat(6, minmax(55px, 1fr));
+  }
+
+  .category-cell {
+    font-size: 0.75rem;
+    padding: 0.35rem;
+  }
+
+  .jeopardy-cell {
+    font-size: 1rem;
+  }
+
+  .question-modal {
+    padding: 1.5rem;
+  }
+
+  .rules-slide {
+    padding: 1.5rem;
+  }
+
+  .rules-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .rule-card {
+    padding: 1.25rem;
+  }
+
+  .rules-buttons {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+}
