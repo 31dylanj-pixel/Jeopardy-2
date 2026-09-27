@@ -217,7 +217,9 @@ button {
 
   font-weight: 900;
 
-  line-height: 0.95;
+  line-height: 1.05;
+
+  padding: 0.05em 0.08em 0.12em;
 
   background:
     linear-gradient(
