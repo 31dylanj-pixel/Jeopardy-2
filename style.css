@@ -1894,3 +1894,38 @@ button {
   }
 
 }
+
+@media (max-width: 700px) {
+
+  .question-screen {
+    padding: 1rem;
+  }
+
+  .question-timer {
+    left: 12px;
+    right: 12px;
+    bottom: 1rem;
+  }
+
+  .timer-main-row {
+    gap: 0.8rem;
+  }
+
+  .timer-clock {
+    min-width: 75px;
+  }
+
+  #timer-display {
+    font-size: 1.6rem;
+  }
+
+  .timer-controls {
+    gap: 0.4rem;
+  }
+
+  .timer-controls button {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+}
