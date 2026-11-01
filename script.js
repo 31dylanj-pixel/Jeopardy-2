@@ -197,8 +197,27 @@ document.addEventListener("keydown", (event) => {
 });
 
 // ==========================================
-// Reusable Timer
+// REUSABLE TIMER
 // ==========================================
+
+let timerInterval = null;
+
+// Default question timer: 3 minutes
+const TIMER_DURATION = 45;
+const DEFAULT_QUESTION_DURATION = 180;
+
+let selectedQuestionDuration = DEFAULT_QUESTION_DURATION;
+let currentTimerDuration = DEFAULT_QUESTION_DURATION;
+
+let timerRemaining = DEFAULT_QUESTION_DURATION * 1000;
+
+let timerPaused = false;
+let activeTimerType = null;
+
+
+// ------------------------------------------
+// Start Timer
+// ------------------------------------------
 
 function startTimer(type = "normal") {
 
@@ -206,19 +225,23 @@ function startTimer(type = "normal") {
 
   activeTimerType = type;
 
-  timerRemaining = TIMER_DURATION * 1000;
+  // Normal questions use the selected duration.
+  // Final Jeopardy keeps its original 45 seconds.
+  currentTimerDuration =
+    type === "final"
+      ? TIMER_DURATION
+      : selectedQuestionDuration;
+
+  timerRemaining = currentTimerDuration * 1000;
 
   timerPaused = false;
 
   updateTimerDisplay();
-
   updatePauseButton();
 
   timerInterval = setInterval(() => {
 
-    if (timerPaused) {
-      return;
-    }
+    if (timerPaused) return;
 
     timerRemaining -= 50;
 
@@ -227,7 +250,6 @@ function startTimer(type = "normal") {
       timerRemaining = 0;
 
       clearInterval(timerInterval);
-
       timerInterval = null;
     }
 
@@ -237,52 +259,106 @@ function startTimer(type = "normal") {
 }
 
 
+// ------------------------------------------
+// Select Question Timer Duration
+// ------------------------------------------
+
+function setTimerDuration(seconds) {
+
+  selectedQuestionDuration = seconds;
+
+  // Update selected button appearance
+  document.querySelectorAll(
+    "#question-modal .duration-button"
+  ).forEach(button => {
+
+    button.classList.remove("selected");
+
+    const buttonText = button.textContent.trim();
+
+    if (
+      (seconds === 180 && buttonText === "3 Minutes") ||
+      (seconds === 60 && buttonText === "1 Minute") ||
+      (seconds === 30 && buttonText === "30 Seconds")
+    ) {
+      button.classList.add("selected");
+    }
+
+  });
+
+  // Immediately reset and start the new duration
+  startTimer("normal");
+}
+
+
+// ------------------------------------------
+// Update Timer Display
+// ------------------------------------------
+
 function updateTimerDisplay() {
 
-  const seconds = Math.ceil(
+  const totalSeconds = Math.ceil(
     timerRemaining / 1000
   );
-
-  const progress =
-    timerRemaining /
-    (TIMER_DURATION * 1000);
 
   let display;
   let bar;
 
   if (activeTimerType === "final") {
 
-    display =
-      document.getElementById("final-timer-display");
+    display = document.getElementById(
+      "final-timer-display"
+    );
 
-    bar =
-      document.getElementById("final-timer-bar");
+    bar = document.getElementById(
+      "final-timer-bar"
+    );
 
   } else {
 
-    display =
-      document.getElementById("timer-display");
+    display = document.getElementById(
+      "timer-display"
+    );
 
-    bar =
-      document.getElementById("timer-bar");
+    bar = document.getElementById(
+      "timer-bar"
+    );
+
   }
 
-  if (!display || !bar) {
-    return;
+  if (!display || !bar) return;
+
+  // Normal question timer uses MM:SS.
+  // Final Jeopardy keeps its original seconds display.
+  if (activeTimerType === "final") {
+
+    display.textContent = totalSeconds;
+
+  } else {
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    display.textContent =
+      `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
   }
 
-  display.textContent = seconds;
+  const progress =
+    timerRemaining /
+    (currentTimerDuration * 1000);
 
-  bar.style.transform =
-    `scaleX(${progress})`;
+  bar.style.transform = `scaleX(${progress})`;
 }
 
 
+// ------------------------------------------
+// Pause / Resume
+// ------------------------------------------
+
 function toggleTimer() {
 
-  if (timerRemaining <= 0) {
-    return;
-  }
+  if (timerRemaining <= 0) return;
 
   timerPaused = !timerPaused;
 
@@ -297,38 +373,35 @@ function updatePauseButton() {
       ? "final-timer-pause-btn"
       : "timer-pause-btn";
 
-  const button =
-    document.getElementById(buttonId);
+  const button = document.getElementById(buttonId);
 
-  if (!button) {
-    return;
-  }
+  if (!button) return;
 
   button.textContent =
-    timerPaused
-      ? "Resume"
-      : "Pause";
+    timerPaused ? "Resume" : "Pause";
 }
 
 
+// ------------------------------------------
+// Restart Timer
+// ------------------------------------------
+
 function restartTimer() {
+
+  if (!activeTimerType) return;
 
   clearInterval(timerInterval);
 
-  timerRemaining =
-    TIMER_DURATION * 1000;
+  timerRemaining = currentTimerDuration * 1000;
 
   timerPaused = false;
 
   updateTimerDisplay();
-
   updatePauseButton();
 
   timerInterval = setInterval(() => {
 
-    if (timerPaused) {
-      return;
-    }
+    if (timerPaused) return;
 
     timerRemaining -= 50;
 
@@ -337,7 +410,6 @@ function restartTimer() {
       timerRemaining = 0;
 
       clearInterval(timerInterval);
-
       timerInterval = null;
     }
 
@@ -546,13 +618,23 @@ function updateMuteDisplay() {
 
 }
 
-// Show music player only on the Jeopardy board
+// ==========================================
+// MUSIC PLAYER VISIBILITY
+// ==========================================
+
 function updateMusicPlayerVisibility() {
+
   const musicPlayer = document.querySelector(".music-player");
-  const boardSlide = document.querySelector("slide-jeopardy");
+  const boardSlide = document.getElementById("slide-jeopardy");
+
+  if (!musicPlayer || !boardSlide) return;
 
   musicPlayer.classList.toggle(
     "visible",
     boardSlide.classList.contains("active")
   );
+
 }
+
+// Set the correct visibility when the page first loads
+updateMusicPlayerVisibility();
