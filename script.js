@@ -549,7 +549,7 @@ function updateMuteDisplay() {
 // Show music player only on the Jeopardy board
 function updateMusicPlayerVisibility() {
   const musicPlayer = document.querySelector(".music-player");
-  const boardSlide = document.querySelector("#slide-4");
+  const boardSlide = document.querySelector("slide-jeopardy");
 
   musicPlayer.classList.toggle(
     "visible",
