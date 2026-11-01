@@ -1715,6 +1715,14 @@ button {
   cursor: pointer;
 }
 
+/* Hide music player until the Jeopardy board */
+.music-player {
+  display: none;
+}
+
+.music-player.visible {
+  display: flex;
+}
 
 /* Mobile */
 
