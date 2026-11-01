@@ -400,3 +400,146 @@ function closeFinalJeopardy() {
 
   goSlide("slide-jeopardy");
 }
+
+// ==========================================
+// BACKGROUND MUSIC PLAYER
+// ==========================================
+
+const backgroundMusic = document.getElementById("background-music");
+
+const musicPlayButton = document.getElementById("music-play-btn");
+const musicMuteButton = document.getElementById("music-mute-btn");
+const musicVolumeSlider = document.getElementById("music-volume");
+const musicStatus = document.getElementById("music-status");
+
+
+// Initial settings
+
+backgroundMusic.volume = 0.35;
+backgroundMusic.loop = true;
+
+
+// Play / Pause
+
+musicPlayButton.addEventListener("click", async () => {
+
+  if (backgroundMusic.paused) {
+
+    try {
+
+      await backgroundMusic.play();
+
+    } catch (error) {
+
+      console.error("Music could not be played:", error);
+
+      musicStatus.textContent = "Unable to play";
+
+    }
+
+  } else {
+
+    backgroundMusic.pause();
+
+  }
+
+});
+
+
+// Update play button and status
+
+function updateMusicDisplay() {
+
+  if (backgroundMusic.paused) {
+
+    musicPlayButton.textContent = "▶";
+
+    musicPlayButton.setAttribute(
+      "aria-label",
+      "Play music"
+    );
+
+    musicStatus.textContent = "Paused";
+
+  } else {
+
+    musicPlayButton.textContent = "Ⅱ";
+
+    musicPlayButton.setAttribute(
+      "aria-label",
+      "Pause music"
+    );
+
+    musicStatus.textContent = "Now Playing";
+
+  }
+
+}
+
+backgroundMusic.addEventListener("play", updateMusicDisplay);
+backgroundMusic.addEventListener("pause", updateMusicDisplay);
+
+
+// Volume slider
+
+musicVolumeSlider.addEventListener("input", () => {
+
+  const volume = Number(musicVolumeSlider.value) / 100;
+
+  backgroundMusic.volume = volume;
+
+  if (volume > 0) {
+
+    backgroundMusic.muted = false;
+
+  }
+
+  updateMuteDisplay();
+
+});
+
+
+// Mute / Unmute
+
+musicMuteButton.addEventListener("click", () => {
+
+  backgroundMusic.muted = !backgroundMusic.muted;
+
+  updateMuteDisplay();
+
+});
+
+
+// Update mute button
+
+function updateMuteDisplay() {
+
+  if (backgroundMusic.muted || backgroundMusic.volume === 0) {
+
+    musicMuteButton.innerHTML = "×";
+
+    musicMuteButton.setAttribute(
+      "aria-label",
+      "Unmute music"
+    );
+
+  } else {
+
+    musicMuteButton.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 5 6 9H2v6h4l5 4V5Z"/>
+        <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+        <path d="M19 5a10 10 0 0 1 0 14"/>
+      </svg>
+    `;
+
+    musicMuteButton.setAttribute(
+      "aria-label",
+      "Mute music"
+    );
+
+  }
+
+}
