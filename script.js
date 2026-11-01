@@ -112,6 +112,8 @@ function goSlide(id) {
   if (target) {
     target.classList.add("active");
   }
+
+  updateMusicPlayerVisibility();
 }
 
 // ------------------------------------------
@@ -542,4 +544,15 @@ function updateMuteDisplay() {
 
   }
 
+}
+
+// Show music player only on the Jeopardy board
+function updateMusicPlayerVisibility() {
+  const musicPlayer = document.querySelector(".music-player");
+  const boardSlide = document.querySelector("#slide-4");
+
+  musicPlayer.classList.toggle(
+    "visible",
+    boardSlide.classList.contains("active")
+  );
 }
