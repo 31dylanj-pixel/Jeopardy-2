@@ -1399,10 +1399,9 @@ button {
 /* Countdown clock */
 
 .timer-clock {
-  flex-shrink: 0;
-
+  flex: 0 0 100px;
+  width: 100px;
   min-width: 100px;
-
   display: flex;
   align-items: center;
   justify-content: flex-start;
