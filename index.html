@@ -272,6 +272,70 @@
   
   </div>
 
+  <!-- Background Music Player -->
+  <div class="music-player">
+  
+    <audio
+      id="background-music"
+      loop
+      preload="none"
+    >
+      <source
+        src="https://dn721603.ca.archive.org/0/items/minecraft-tricky-trials-original-game-soundtrack/Minecraft%20Tricky%20Trials%20%28Original%20Game%20Soundtrack%29/12%20Precipice.mp3"
+        type="audio/mpeg"
+      >
+    </audio>
+  
+    <div class="music-info">
+      <span class="music-icon">♫</span>
+  
+      <div class="music-text">
+        <span class="music-title">Background Music</span>
+        <span class="music-status" id="music-status">Paused</span>
+      </div>
+    </div>
+  
+    <div class="music-controls">
+  
+      <button
+        id="music-play-btn"
+        class="music-control-button play-button"
+        aria-label="Play music"
+        title="Play / Pause"
+      >
+        ▶
+      </button>
+  
+      <button
+        id="music-mute-btn"
+        class="music-control-button"
+        aria-label="Mute music"
+        title="Mute / Unmute"
+      >
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5 6 9H2v6h4l5 4V5Z"/>
+          <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+          <path d="M19 5a10 10 0 0 1 0 14"/>
+        </svg>
+      </button>
+  
+      <input
+        type="range"
+        id="music-volume"
+        class="music-volume"
+        min="0"
+        max="100"
+        value="35"
+        aria-label="Music volume"
+        title="Volume"
+      >
+  
+    </div>
+  
+  </div>
+  
   <script src="script.js"></script>
 </body>
 </html>
