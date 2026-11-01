@@ -246,26 +246,49 @@
   
     </div>
   
-    <!-- Timer -->
+    <!-- Question Timer -->
     <div class="question-timer">
-
-      <div class="timer-display-row">
-        <span id="timer-display">45</span>
-        <span>seconds</span>
-      </div>
     
-      <div class="timer-track">
-        <div id="timer-bar"></div>
+      <div class="timer-main-row">
+    
+        <div class="timer-clock">
+          <span id="timer-display">03:00</span>
+        </div>
+    
+        <div class="timer-track">
+          <div id="timer-bar"></div>
+        </div>
+    
       </div>
     
       <div class="timer-controls">
-        <button id="timer-pause-btn" onclick="toggleTimer()">
+    
+        <button class="duration-button selected"
+                onclick="setTimerDuration(180)">
+          3 Minutes
+        </button>
+    
+        <button class="duration-button"
+                onclick="setTimerDuration(60)">
+          1 Minute
+        </button>
+    
+        <button class="duration-button"
+                onclick="setTimerDuration(30)">
+          30 Seconds
+        </button>
+    
+        <button id="timer-pause-btn"
+                class="timer-action-button"
+                onclick="toggleTimer()">
           Pause
         </button>
     
-        <button onclick="restartTimer()">
+        <button class="timer-action-button"
+                onclick="restartTimer()">
           Restart
         </button>
+    
       </div>
     
     </div>
