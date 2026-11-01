@@ -88,16 +88,6 @@ const answers = [
   ]
 ];
 
-let timerInterval = null;
-
-const TIMER_DURATION = 45;
-
-let timerRemaining = TIMER_DURATION * 1000;
-
-let timerPaused = false;
-
-let activeTimerType = null;
-
 // ------------------------------------------
 // Slide navigation
 // ------------------------------------------
