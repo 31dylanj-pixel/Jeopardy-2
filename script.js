@@ -1,90 +1,97 @@
 // ==========================================
 // CHESS CLUB JEOPARDY
-// Edit the categories, questions, and answers
-// below to customize the game.
+// Advanced Edition
 // ==========================================
 
 const categories = [
-  "Openings",
-  "Endgames",
-  "Tactics",
-  "History",
-  "Rules"
+  "Advanced Openings",
+  "Chess Calculation",
+  "Advanced Tactics",
+  "Chess Legends",
+  "Rules & Endgames"
 ];
 
 const questions = [
   [
-    "Name the opening: 1.e4 e5 2.Nf3 Nc6 3.Bb5 (Ref. Slide 2)",
-    "What is the Sicilian Defense first move for Black? (Ref. Slide 3)",
-    "Name the gambit: 1.d4 d5 2.c4 (Ref. Slide 4)",
-    "Which opening starts with 1.f4? (Ref. Slide 5)",
-    "What is the move order for the King's Indian Defense? (Ref. Slide 6)"
+    "Which opening is reached after 1.e4 c5?",
+    "In the Queen's Gambit Declined, what is Black's typical response to 1.d4 d5 2.c4?",
+    "What is the name of the opening variation beginning with 1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 4.Ba4 Nf6 5.O-O Be7?",
+    "In the King's Indian Defense, what is Black's main strategic pawn break against White's central pawn structure?",
+    "What is the name of the sharp variation in the Sicilian Defense beginning with 1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6?"
   ],
+
   [
-    "What is the minimum material to force checkmate with King?",
-    "An extra pawn in a pure king and pawn ending decides the game over __% of the time. Team with the closet percent recieves the points",
-    "What is the 50 move rule for endgames?",
-    "Can a lone Bishop checkmate?",
-    "What is opposition in King endgames?"
+    "If a player moves their queen away from an attacked square, what important tactical opportunity should they check for before moving?",
+    "What is the value of a bishop compared to a pawn in the traditional material point system?",
+    "If two players have equal material but one has significantly more active pieces, which player generally has the positional advantage?",
+    "White has a king on g1, queen on d1, and rook on e1. Black has a king on g8 and a rook on e8. What tactical possibility might White look for along the e-file?",
+    "Why can calculating a forced sequence of checks, captures, and threats be more effective than simply choosing the move that looks strongest?"
   ],
+
   [
-    "What is a fork?",
-    "What is a pin?",
-    "What is a skewer?",
-    "What is a discovered attack?",
-    "What is zugzwang?"
+    "What is a zwischenzug?",
+    "What is a deflection tactic?",
+    "What is the difference between a decoy and a deflection?",
+    "What is an interference tactic in chess?",
+    "What is the name of the tactical pattern in which a queen and bishop cooperate to deliver checkmate on h7 or h2, often against a castled king?"
   ],
+
   [
-    "Who was the first official World Champion?",
-    "In what year was FIDE founded?",
-    "Who defeated Kasparov in 1997?",
-    "Which country hosted the 1972 \"Match of the Century\"? (Ref. Slide 7)",
-    "What was chess first called when it was created?"
+    "Who was the first officially recognized World Chess Champion?",
+    "Which chess player was nicknamed the 'Magician from Riga'?",
+    "Which computer defeated Garry Kasparov in 1997?",
+    "Who became the youngest undisputed World Chess Champion in 1985?",
+    "Which chess player is famous for playing a legendary 13-move miniature against Donald Byrne in 1956?"
   ],
+
   [
-    "How many squares are on a chess board?",
-    "What is en passant?",
-    "When can you castle?",
-    "What is stalemate?",
-    "How does a pawn promote?"
+    "What is the minimum number of moves without a pawn move or capture required for a player to claim a draw under the 50-move rule?",
+    "Can two knights force checkmate against a lone king?",
+    "What is the difference between a passed pawn and an isolated pawn?",
+    "In a king and pawn endgame, what is the purpose of opposition?",
+    "What is the theoretical result of king, bishop, and knight versus a lone king with correct play?"
   ]
 ];
 
 const answers = [
   [
-    "Ruy Lopez",
-    "The Sicilian Defense begins with ...c5",
-    "Queen's Gambit",
-    "Bird Opening",
-    "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7"
+    "The Sicilian Defense",
+    "2...e6 or 2...c6 are common responses; both are playable",
+    "The Morphy Defense, Closed Variation of the Ruy Lopez",
+    "...f5, challenging White's central structure and often preparing kingside play",
+    "The Najdorf Variation"
   ],
+
   [
-    "King and queen, or king and rook, depending on the position",
-    "An extra pawn in a pure king and pawn ending decides the game over 90% of the time.",
-    "This rule allows a player to claim a draw if 50 moves pass without any capture or pawn movement.",
-    "No; king and bishop versus king is a draw",
-    "A king-to-king opposition that restricts the opposing king"
+    "Whether moving the queen allows a discovered attack or exposes another valuable piece",
+    "3 points",
+    "The player with more active pieces",
+    "A possible exchange or tactical sequence on the e-file, depending on the position",
+    "Because forcing moves limit the opponent's choices and allow more accurate calculation"
   ],
+
   [
-    "One piece attacks two or more targets",
-    "An attacked piece cannot move without exposing a more valuable piece",
-    "An attack on a valuable piece that forces it to move, exposing another piece",
-    "An attack revealed when another piece moves away",
-    "A position where every legal move worsens the position"
+    "An intermediate move played before an expected recapture or response",
+    "A tactic that forces an enemy piece away from an important defensive square",
+    "A decoy lures a piece onto a particular square; a deflection drives a defending piece away from its duty",
+    "A tactic in which a piece is placed between an enemy piece and an important square or line",
+    "The Greek Gift is a related attacking sacrifice, but the specific queen-and-bishop mating pattern is commonly called a battery or mating attack"
   ],
+
   [
     "Wilhelm Steinitz",
-    "1924",
+    "Mikhail Tal",
     "IBM's Deep Blue",
-    "Iceland",
-    "Chaturanga"
+    "Garry Kasparov",
+    "Bobby Fischer"
   ],
+
   [
-    "64",
-    "A special pawn capture immediately after a two-square advance",
-    "When neither the king nor rook has moved and the path is clear and safe",
-    "A draw when the player to move has no legal move but is not in check",
-    "By reaching the last rank and becoming a queen, rook, bishop, or knight"
+    "50 moves by each player, or 100 individual half-moves",
+    "No. Two knights cannot force checkmate against a lone king with correct play",
+    "A passed pawn has no opposing pawns able to stop or capture it on its path to promotion; an isolated pawn has no friendly pawns on adjacent files",
+    "To restrict the opposing king's movement and gain control of key squares",
+    "A forced checkmate, with correct play"
   ]
 ];
 
